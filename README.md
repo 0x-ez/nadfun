@@ -30,6 +30,8 @@ Each table directory under [`data/`](data/) has:
 - `json-schema.json`: JSON Schema for the `.json` file
 - `README.md`: the data dictionary
 
+[`data/trades/`](data/trades/README.md) (this branch only) holds every token's trades and Transfers, one directory per token (`trades.csv`, `transfers.csv`), plus `flows.json`: money flows from funding sources through wallet cohorts to destinations. It's updated about hourly by a separate job, has its own `manifest.json`, and isn't part of `datapackage.json`.
+
 [`datapackage.json`](datapackage.json) describes all files as a Frictionless Data Package. [`manifest.json`](manifest.json) records the snapshot time, the block the data is complete through, row counts and SHA-256 checksums.
 
 ## Formats in short
