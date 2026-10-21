@@ -1,0 +1,2 @@
+"block_number","block_time","log_index","tx_hash","side","phase","trader","quote_token","quote_decimals","quote_amount","token_amount","reserve_quote","reserve_token","sqrt_price_x96","contract"
+101058756,"2026-09-01T13:51:53Z",94,"0x044375b2fa2b7c120d2e695b442598adbc8aded84aba6e09112481faf3765ae5","buy","curve","0x092975d4ef81feb7c9df15541db96a78bcc33c70","0x3bd359c1119da7da1d913d1c4d2b7c461115433a",18,"20200000000000000000","299844117283632188817002","70019796000000000000000","1060269155882716367811182998",,"0x9f3832732923252a21044f21ee6bd87f09514ae4"
