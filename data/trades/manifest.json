@@ -1,0 +1,8 @@
+{
+  "dataset": "nadfun-trades",
+  "format": 1,
+  "generated_at": "2026-10-21T17:25:39Z",
+  "watermark": "1970-01-01 00:00:00.000000",
+  "complete_through_block": 115383593,
+  "tokens": 3
+}
