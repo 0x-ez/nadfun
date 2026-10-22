@@ -9,6 +9,7 @@ This directory lives on the `trades` branch, which is `main` plus `data/trades/`
 ```
 manifest.json                run time, watermark, last block covered, token count
 index.json                   token → {updated_at, trades, transfers, flows}
+volume_hourly.json           MON traded per UTC hour, all tokens
 <token>/trades.csv           the token's trades, in chain order
 <token>/transfers.csv        the token's ERC-20 Transfers, in chain order
 <token>/flows.json           money flows (tokens with at least 10 trades)
@@ -55,5 +56,9 @@ How the flows are read:
 - **Destinations.** A wallet's MON outflows and buys of other nad.fun tokens in the 24 hours after its first sell. The rest is "not moved".
 
 Sources and destinations keep the top 8 per window, and the rest become "Other". Links under 0.5% of the window's larger side are dropped. `buys` and `sells` are exact totals.
+
+### volume_hourly.json
+
+`{format, generated_at, through_block, unit: "MON", start, volume}`: `volume[i]` is the MON traded in the hour `start + i` hours (UTC), buys and sells, over every token's WMON-quoted trades. Empty hours are 0.
 
 Built by `services/flows` in the dyad repo, from `infra/clickhouse/queries/token_flows.sql`.
