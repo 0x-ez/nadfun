@@ -8,8 +8,9 @@ This directory lives on the `trades` branch, which is `main` plus `data/trades/`
 
 ```
 manifest.json                run time, watermark, last block covered, token count
-index.json                   token → {updated_at, trades, transfers, flows}
+index.json                   token → {updated_at, trades, transfers, flows, parts?}
 volume_hourly.json           MON traded per UTC hour, all tokens
+top_traded.json              the 50 tokens with the most MON traded, all time
 <token>/trades.csv           the token's trades, in chain order
 <token>/transfers.csv        the token's ERC-20 Transfers, in chain order
 <token>/flows.json           money flows (tokens with at least 10 trades)
@@ -20,6 +21,8 @@ Fetch one token straight from GitHub:
 ```
 https://raw.githubusercontent.com/0x-ez/nadfun/trades/data/trades/<token>/flows.json
 ```
+
+A CSV over 90 MB is split at row boundaries into `trades.0.csv`, `trades.1.csv`, … (or `transfers.N.csv`), each with the header, since GitHub refuses files over 100 MB. The token's `index.json` entry then has `parts: {trades?, transfers?}`, the number of parts; concatenate them in order, dropping repeated headers.
 
 Formats follow the dataset's [conventions](../../docs/conventions.md): big integers are exact decimal strings, timestamps ISO 8601 UTC, addresses lowercase `0x` hex, NULL an empty field.
 
@@ -60,5 +63,9 @@ Sources and destinations keep the top 8 per window, and the rest become "Other".
 ### volume_hourly.json
 
 `{format, generated_at, through_block, unit: "MON", start, volume}`: `volume[i]` is the MON traded in the hour `start + i` hours (UTC), buys and sells, over every token's WMON-quoted trades. Empty hours are 0.
+
+### top_traded.json
+
+`{format, generated_at, through_block, unit: "MON", tokens}`: the 50 tokens with the most MON traded over their WMON-quoted trades, most first. Each entry is `{token, volume, curve, dex, trades, traders, first_trade, last_trade}`, where `volume = curve + dex` (buys and sells, MON) and `traders` counts distinct transaction senders.
 
 Built by `services/flows` in the dyad repo, from `infra/clickhouse/queries/token_flows.sql`.
